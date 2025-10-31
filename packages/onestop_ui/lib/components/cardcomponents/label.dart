@@ -18,10 +18,6 @@ class OCardLabels extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: OSpacing.xs,
-        vertical: OSpacing.xxs,
-      ),
       decoration: BoxDecoration(color: Colors.transparent),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -29,9 +25,9 @@ class OCardLabels extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Icon(icon, size: 16, color: color),
-          SizedBox(width: OSpacing.s),
+          SizedBox(width: OSpacing.xxs),
           OText(
-            text: label,
+            text: isSmall ? label.toUpperCase() : label,
             style:
                 isSmall
                     ? OTextStyle.labelXSmall.copyWith(color: color)

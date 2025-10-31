@@ -4,88 +4,162 @@ import 'package:onestop_ui/index.dart';
 
 enum EventCardSize { small, medium, large }
 
-enum EventCardType { upcomingUser, pastUser, upcomingAdmin, pastAdmin }
+enum EventCardType { user, admin }
 
 class OEventListingCard extends StatefulWidget {
   final String title;
-  final String date;
+  final String? date;
   final EventCardSize size;
   final EventCardType type;
   final VoidCallback? onTap;
   final bool isDisabled;
+  final bool? isSaved;
+  final String? eventImageUrl;
+  final String startTime;
+  final String? endtime;
+  final String location;
+  final String? tag1;
+  final String? tag2;
+  final int? attendance;
+  final int? likes;
+  final int? views;
+  final int? feedbacks;
+  final IconData? tagIcon1;
+  final IconData? tagIcon2;
+  final String? hostImageUrl;
+  final String? hostName;
+  final VoidCallback? delete;
+  final VoidCallback? edit;
 
   const OEventListingCard._({
     super.key,
     required this.title,
-    required this.date,
+    this.date,
     required this.size,
     required this.type,
-    this.onTap,
+    required this.onTap,
+    this.eventImageUrl,
     this.isDisabled = false,
+    this.isSaved,
+    required this.startTime,
+    this.endtime,
+    required this.location,
+    this.tag1,
+    this.tag2,
+    this.attendance,
+    this.likes,
+    this.feedbacks,
+    this.views,
+    this.tagIcon1,
+    this.tagIcon2,
+    this.hostImageUrl,
+    this.hostName,
+    this.delete,
+    this.edit,
   });
-  const OEventListingCard.pastAdmin({
+  const OEventListingCard.small({
     Key? key,
     required String title,
-    required String date,
-    required EventCardSize size,
+    required String location,
+    required EventCardType type,
     VoidCallback? onTap,
     bool isDisabled = false,
+    required String startTime,
+    bool isSaved = false,
+    required String eventImageUrl,
+    String? tag1,
+    String? tag2,
   }) : this._(
          key: key,
          title: title,
-         date: date,
-         size: size,
-         type: EventCardType.pastAdmin,
+         location: location,
+         size: EventCardSize.small,
+         startTime: startTime,
+         type: type,
          onTap: onTap,
          isDisabled: isDisabled,
+         isSaved: isSaved,
+         eventImageUrl: eventImageUrl,
+         tag1: tag1,
+         tag2: tag2,
        );
-  const OEventListingCard.pastUser({
+  const OEventListingCard.medium({
     Key? key,
     required String title,
     required String date,
-    required EventCardSize size,
+    required String location,
+    required EventCardType type,
     VoidCallback? onTap,
     bool isDisabled = false,
+    required String startTime,
+    bool isSaved = false,
+    required String eventImageUrl,
+    int? attendance,
+    String? endtime,
   }) : this._(
          key: key,
          title: title,
          date: date,
-         size: size,
-         type: EventCardType.pastUser,
+         size: EventCardSize.medium,
+         location: location,
+         type: type,
          onTap: onTap,
          isDisabled: isDisabled,
+         startTime: startTime,
+         isSaved: isSaved,
+         eventImageUrl: eventImageUrl,
+         attendance: attendance,
+         endtime: endtime,
        );
-  const OEventListingCard.upcomingAdmin({
+  const OEventListingCard.large({
     Key? key,
     required String title,
     required String date,
-    required EventCardSize size,
+    required String location,
+    required EventCardType type,
     VoidCallback? onTap,
     bool isDisabled = false,
+    required String startTime,
+    bool isSaved = false,
+    required String eventImageUrl,
+    int? attendance,
+    int? likes,
+    int? views,
+    int? feedbacks,
+    String? tag1,
+    String? tag2,
+    IconData? tagIcon1,
+    IconData? tagIcon2,
+    String? hostImageUrl,
+    String? hostName,
+    VoidCallback? delete,
+    VoidCallback? edit,
+    String? endtime,
   }) : this._(
          key: key,
          title: title,
          date: date,
-         size: size,
-         type: EventCardType.upcomingAdmin,
+         size: EventCardSize.large,
+         startTime: startTime,
+         type: type,
+         location: location,
          onTap: onTap,
          isDisabled: isDisabled,
-       );
-  const OEventListingCard.upcomingUser({
-    Key? key,
-    required String title,
-    required String date,
-    required EventCardSize size,
-    VoidCallback? onTap,
-    bool isDisabled = false,
-  }) : this._(
-         key: key,
-         title: title,
-         date: date,
-         size: size,
-         type: EventCardType.upcomingUser,
-         onTap: onTap,
-         isDisabled: isDisabled,
+         isSaved: isSaved,
+         eventImageUrl: eventImageUrl,
+         attendance: attendance,
+         likes: likes,
+         views: views,
+         feedbacks: feedbacks,
+         tag2: tag2,
+         tag1: tag1,
+         delete: delete,
+         edit: edit,
+         tagIcon1: tagIcon1,
+         tagIcon2: tagIcon2,
+         endtime: endtime,
+         hostImageUrl: hostImageUrl,
+         hostName: hostName,
        );
 
   @override
@@ -94,7 +168,6 @@ class OEventListingCard extends StatefulWidget {
 
 class _OEventListingCardState extends State<OEventListingCard> {
   bool _isPressed = false;
-  bool _isSaved = false;
 
   @override
   void initState() {
@@ -105,13 +178,10 @@ class _OEventListingCardState extends State<OEventListingCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTapDown:
-          (_) =>
-              widget.isDisabled
-                  ? null
-                  : setState(
-                    () => _isPressed = true,
-                  ), //engage behaviour when card is tapped
+      onTapDown: (_) {
+        widget.isDisabled ? null : setState(() => _isPressed = true);
+        widget.isDisabled ? null : widget.onTap;
+      },
       onTapUp: (_) {
         setState(() => _isPressed = false);
       },
@@ -128,8 +198,8 @@ class _OEventListingCardState extends State<OEventListingCard> {
 
   Widget _buildCardContent() {
     // Build content based on size - larger cards show more info
-    if (widget.size == EventCardSize.small) {
-      return Padding(
+    return switch (widget.size) {
+      EventCardSize.small => Padding(
         padding: const EdgeInsets.all(OSpacing.s),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -144,9 +214,7 @@ class _OEventListingCardState extends State<OEventListingCard> {
                     borderRadius: BorderRadius.circular(OCornerRadius.xl),
                     color: OColor.gray400,
                     image: DecorationImage(
-                      image: NetworkImage(
-                        "https://variety.com/wp-content/uploads/2019/10/shutterstock_editorial_10435445et.jpg?w=1000&h=667&crop=1",
-                      ),
+                      image: NetworkImage(widget.eventImageUrl!),
                       fit: BoxFit.cover,
                       opacity: 1,
                     ),
@@ -157,92 +225,84 @@ class _OEventListingCardState extends State<OEventListingCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     OText(
-                      text: "Event Title",
+                      text: widget.title,
                       style: OTextStyle.bodyMedium.copyWith(
                         color:
                             widget.isDisabled ? OColor.gray600 : OColor.gray800,
                       ),
                     ),
-                    if (_isSaved == true) const SizedBox(height: OSpacing.xxs),
-                    if (_isSaved == true)
-                      Row(
-                        children: [
-                          Icon(
-                            TablerIcons.check,
-                            size: 16,
-                            color:
-                                widget.isDisabled
-                                    ? OColor.gray400
-                                    : OColor.green600,
-                          ),
-                          const SizedBox(width: OSpacing.xxs),
-                          OText(
-                            text: "I'm going",
-                            style: OTextStyle.labelXSmall.copyWith(
-                              color:
-                                  widget.isDisabled
-                                      ? OColor.gray400
-                                      : OColor.green600,
-                            ),
-                          ),
-                        ],
+                    if (widget.isSaved == true)
+                      const SizedBox(height: OSpacing.xxs),
+                    if (widget.isSaved == true)
+                      OCardLabels(
+                        label: "I'm Going",
+                        icon: TablerIcons.check,
+                        color:
+                            widget.isDisabled
+                                ? OColor.gray400
+                                : OColor.green600,
                       ),
                     const SizedBox(height: OSpacing.xxs),
                     OText(
-                      text: "Time," + "Location",
+                      text: "${widget.startTime}, ${widget.location}",
                       style: OTextStyle.bodySmall.copyWith(
                         color:
                             widget.isDisabled ? OColor.gray400 : OColor.gray600,
                       ),
                     ),
-                    const SizedBox(height: OSpacing.xs),
-                    Row(
-                      children: [
-                        Container(
-                          width: 46,
-                          height: 24,
-                          decoration: BoxDecoration(
-                            color: OColor.gray100,
-                            borderRadius: BorderRadius.circular(
-                              OCornerRadius.xl,
-                            ),
-                          ),
-                          child: Center(
-                            child: OText(
-                              text: "TAg1",
-                              style: OTextStyle.labelXSmall.copyWith(
-                                color:
-                                    widget.isDisabled
-                                        ? OColor.gray400
-                                        : OColor.blue600,
+                    if (widget.tag1 != null && widget.tag2 != null)
+                      const SizedBox(height: OSpacing.xs),
+                    if (widget.tag1 != null && widget.tag2 != null)
+                      Row(
+                        children: [
+                          if (widget.tag1 != null)
+                            Container(
+                              width: 46,
+                              height: 24,
+                              decoration: BoxDecoration(
+                                color: OColor.gray100,
+                                borderRadius: BorderRadius.circular(
+                                  OCornerRadius.xl,
+                                ),
+                              ),
+                              child: Center(
+                                child: OText(
+                                  text: widget.tag1?.toUpperCase(),
+                                  style: OTextStyle.labelXSmall.copyWith(
+                                    color:
+                                        widget.isDisabled
+                                            ? OColor.gray400
+                                            : OColor.blue600,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                        const SizedBox(width: OSpacing.m),
-                        Container(
-                          width: 46,
-                          height: 24,
-                          decoration: BoxDecoration(
-                            color: OColor.gray100,
-                            borderRadius: BorderRadius.circular(
-                              OCornerRadius.xl,
-                            ),
-                          ),
-                          child: Center(
-                            child: OText(
-                              text: "TAg2",
-                              style: OTextStyle.labelXSmall.copyWith(
-                                color:
-                                    widget.isDisabled
-                                        ? OColor.gray400
-                                        : OColor.green600,
+                          if (widget.tag2 != null)
+                            const SizedBox(width: OSpacing.m),
+                          if (widget.tag2 != null)
+                            Container(
+                              width: 46,
+                              height: 24,
+                              decoration: BoxDecoration(
+                                color: OColor.gray100,
+                                borderRadius: BorderRadius.circular(
+                                  OCornerRadius.xl,
+                                ),
+                              ),
+                              child: Center(
+                                child: OText(
+                                  text: widget.tag2?.toUpperCase(),
+                                  style: OTextStyle.labelXSmall.copyWith(
+                                    color:
+                                        widget.isDisabled
+                                            ? OColor.gray400
+                                            : OColor.green600,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
                   ],
                 ),
               ],
@@ -254,10 +314,8 @@ class _OEventListingCardState extends State<OEventListingCard> {
             ),
           ],
         ),
-      );
-    }
-    if (widget.size == EventCardSize.medium) {
-      return Column(
+      ),
+      EventCardSize.medium => Column(
         children: [
           Container(
             width: 210,
@@ -269,9 +327,7 @@ class _OEventListingCardState extends State<OEventListingCard> {
               ),
               color: OColor.gray400,
               image: DecorationImage(
-                image: NetworkImage(
-                  "https://variety.com/wp-content/uploads/2019/10/shutterstock_editorial_10435445et.jpg?w=1000&h=667&crop=1",
-                ),
+                image: NetworkImage(widget.eventImageUrl!),
                 fit: BoxFit.cover,
                 opacity: 1,
               ),
@@ -292,55 +348,39 @@ class _OEventListingCardState extends State<OEventListingCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 OText(
-                  text: "Event Title",
+                  text: widget.title,
                   style: OTextStyle.bodyMedium.copyWith(
                     color: widget.isDisabled ? OColor.gray600 : OColor.gray800,
                   ),
                 ),
                 const SizedBox(width: OSpacing.xs),
                 OText(
-                  text: "Date," + " " + "Start time -" + " " + "End time",
+                  text:
+                      "${widget.date}, ${widget.startTime} - ${widget.endtime}",
                   style: OTextStyle.bodySmall.copyWith(
                     color: widget.isDisabled ? OColor.gray400 : OColor.gray600,
                   ),
                 ),
                 const SizedBox(width: OSpacing.xxs),
                 OText(
-                  text: "Location",
+                  text: widget.location,
                   style: OTextStyle.bodySmall.copyWith(
                     color: widget.isDisabled ? OColor.gray400 : OColor.gray600,
                   ),
                 ),
                 const SizedBox(width: OSpacing.xs),
-                if (_isSaved == true)
-                  Row(
-                    children: [
-                      Icon(
-                        TablerIcons.check,
-                        size: 16,
-                        color:
-                            widget.isDisabled
-                                ? OColor.gray400
-                                : OColor.green600,
-                      ),
-                      const SizedBox(width: OSpacing.xxs),
-                      OText(
-                        text: "Going",
-                        style: OTextStyle.labelXSmall.copyWith(
-                          color:
-                              widget.isDisabled
-                                  ? OColor.gray400
-                                  : OColor.green600,
-                        ),
-                      ),
-                    ],
+                if (widget.isSaved == true)
+                  OCardLabels(
+                    label: "Going",
+                    icon: TablerIcons.check,
+                    color: widget.isDisabled ? OColor.gray400 : OColor.green600,
                   ),
-                if (_isSaved != true)
+                if (widget.isSaved != true)
                   Row(
                     children: [
                       const SizedBox(width: OSpacing.m),
                       OText(
-                        text: "+ 350 Others",
+                        text: "+ ${widget.attendance} others",
                         style: OTextStyle.labelXSmall.copyWith(
                           color:
                               widget.isDisabled
@@ -354,221 +394,190 @@ class _OEventListingCardState extends State<OEventListingCard> {
             ),
           ),
         ],
-      );
-    }
-    return Padding(
-      padding: const EdgeInsets.all(OSpacing.s),
-      child: Column(
-        children: [
-          Container(
-            height: 187.53,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(OCornerRadius.s)),
-              color: OColor.gray400,
-              image: DecorationImage(
-                image: NetworkImage(
-                  "https://variety.com/wp-content/uploads/2019/10/shutterstock_editorial_10435445et.jpg?w=1000&h=667&crop=1",
+      ),
+      EventCardSize.large => Padding(
+        padding: const EdgeInsets.all(OSpacing.s),
+        child: Column(
+          children: [
+            Container(
+              height: 187.53,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(OCornerRadius.s),
                 ),
-                fit: BoxFit.cover,
-                opacity: 1,
+                color: OColor.gray400,
+                image: DecorationImage(
+                  image: NetworkImage(widget.eventImageUrl!),
+                  fit: BoxFit.cover,
+                  opacity: 1,
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: OSpacing.s),
-          Row(
-            children: [
+            if (widget.type == EventCardType.admin)
+              const SizedBox(height: OSpacing.s),
+            if (widget.type == EventCardType.admin)
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Icon(
-                    TablerIcons.heart_plus,
-                    size: 16,
+                  OCardLabels(
+                    label: widget.likes.toString(),
+                    icon: TablerIcons.heart_plus,
                     color: widget.isDisabled ? OColor.gray400 : OColor.blue500,
+                    isSmall: true,
                   ),
-                  const SizedBox(width: OSpacing.xxs),
-                  OText(
-                    text: "350",
-                    style: OTextStyle.labelXSmall.copyWith(
-                      color:
-                          widget.isDisabled ? OColor.gray400 : OColor.blue500,
-                    ),
+                  const SizedBox(width: OSpacing.s),
+                  OCardLabels(
+                    label: widget.views.toString(),
+                    icon: TablerIcons.eye,
+                    color: widget.isDisabled ? OColor.gray400 : OColor.blue500,
+                    isSmall: true,
+                  ),
+                  const SizedBox(width: OSpacing.s),
+                  OCardLabels(
+                    label: widget.feedbacks.toString(),
+                    icon: TablerIcons.message_heart,
+                    color: widget.isDisabled ? OColor.gray400 : OColor.blue500,
+                    isSmall: true,
                   ),
                 ],
               ),
-              const SizedBox(width: OSpacing.s),
-              Row(
-                children: [
-                  Icon(
-                    TablerIcons.eye,
-                    size: 16,
-                    color: widget.isDisabled ? OColor.gray400 : OColor.blue500,
+            const SizedBox(height: OSpacing.s),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                OText(
+                  text: widget.title,
+                  style: OTextStyle.headingSmall.copyWith(
+                    color: widget.isDisabled ? OColor.gray600 : OColor.gray800,
                   ),
-                  const SizedBox(width: OSpacing.xxs),
-                  OText(
-                    text: "800",
-                    style: OTextStyle.labelXSmall.copyWith(
-                      color:
-                          widget.isDisabled ? OColor.gray400 : OColor.blue500,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(width: OSpacing.s),
-              Row(
-                children: [
-                  Icon(
-                    TablerIcons.message_heart,
-                    size: 16,
-                    color: widget.isDisabled ? OColor.gray400 : OColor.blue500,
-                  ),
-                  const SizedBox(width: OSpacing.xxs),
-                  OText(
-                    text: "350",
-                    style: OTextStyle.labelXSmall.copyWith(
-                      color:
-                          widget.isDisabled ? OColor.gray400 : OColor.blue500,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: OSpacing.s),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              OText(
-                text: "Event Title",
-                style: OTextStyle.headingSmall.copyWith(
-                  color: widget.isDisabled ? OColor.gray600 : OColor.gray800,
                 ),
-              ),
-              Icon(
-                TablerIcons.chevron_right,
-                color: widget.isDisabled ? OColor.gray400 : OColor.gray600,
-                size: 24,
-              ),
-            ],
-          ),
-          const SizedBox(height: OSpacing.s),
-          Row(
-            children: [
-              Container(
-                width: 46,
-                height: 24,
-                decoration: BoxDecoration(
-                  color: OColor.gray100,
-                  borderRadius: BorderRadius.circular(OCornerRadius.xl),
+                Icon(
+                  TablerIcons.chevron_right,
+                  color: widget.isDisabled ? OColor.gray400 : OColor.gray600,
+                  size: 24,
                 ),
-                child: Center(
-                  child: OText(
-                    text: "TAg1",
-                    style: OTextStyle.labelXSmall.copyWith(
+              ],
+            ),
+            const SizedBox(height: OSpacing.s),
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: OSpacing.xs,
+                    vertical: OSpacing.xxs,
+                  ),
+                  decoration: BoxDecoration(
+                    color: OColor.gray100,
+                    borderRadius: BorderRadius.circular(OCornerRadius.xl),
+                  ),
+                  child: Center(
+                    child: OCardLabels(
+                      label: widget.tag1!.toUpperCase(),
+                      icon: widget.tagIcon1!,
                       color:
                           widget.isDisabled ? OColor.gray400 : OColor.blue600,
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(width: OSpacing.m),
-              Container(
-                width: 46,
-                height: 24,
-                decoration: BoxDecoration(
-                  color: OColor.gray100,
-                  borderRadius: BorderRadius.circular(OCornerRadius.xl),
-                ),
-                child: Center(
-                  child: OText(
-                    text: "TAg2",
-                    style: OTextStyle.labelXSmall.copyWith(
+                const SizedBox(width: OSpacing.m),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: OSpacing.xs,
+                    vertical: OSpacing.xxs,
+                  ),
+                  decoration: BoxDecoration(
+                    color: OColor.gray100,
+                    borderRadius: BorderRadius.circular(OCornerRadius.xl),
+                  ),
+                  child: Center(
+                    child: OCardLabels(
+                      label: widget.tag2!.toUpperCase(),
+                      icon: widget.tagIcon2!,
                       color:
                           widget.isDisabled ? OColor.gray400 : OColor.green600,
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: OSpacing.s),
-          Column(
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    TablerIcons.map_pin,
-                    color: widget.isDisabled ? OColor.gray400 : OColor.gray600,
-                    size: 16,
-                  ),
-                  const SizedBox(width: OSpacing.xxs),
-                  OText(
-                    text: "Location",
-                    style: OTextStyle.labelSmall.copyWith(
+              ],
+            ),
+            const SizedBox(height: OSpacing.s),
+            Column(
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      TablerIcons.map_pin,
                       color:
                           widget.isDisabled ? OColor.gray400 : OColor.gray600,
+                      size: 16,
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: OSpacing.xxs),
-              Row(
-                children: [
-                  Icon(
-                    TablerIcons.calendar,
-                    color: widget.isDisabled ? OColor.gray400 : OColor.gray600,
-                    size: 16,
-                  ),
-                  const SizedBox(width: OSpacing.xxs),
-                  OText(
-                    text: "Date," + " " + "Start time -" + " " + "End time",
-                    style: OTextStyle.labelSmall.copyWith(
+                    const SizedBox(width: OSpacing.xxs),
+                    OText(
+                      text: widget.location,
+                      style: OTextStyle.labelSmall.copyWith(
+                        color:
+                            widget.isDisabled ? OColor.gray400 : OColor.gray600,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: OSpacing.xxs),
+                Row(
+                  children: [
+                    Icon(
+                      TablerIcons.calendar,
                       color:
                           widget.isDisabled ? OColor.gray400 : OColor.gray600,
+                      size: 16,
+                    ),
+                    const SizedBox(width: OSpacing.xxs),
+                    OText(
+                      text:
+                          "${widget.date}, ${widget.startTime} - ${widget.endtime}",
+                      style: OTextStyle.labelSmall.copyWith(
+                        color:
+                            widget.isDisabled ? OColor.gray400 : OColor.gray600,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: OSpacing.s),
+            Row(
+              children: [
+                Container(
+                  width: 24,
+                  height: 24,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(OCornerRadius.xl),
+                    color: OColor.gray400,
+                    image: DecorationImage(
+                      image: NetworkImage(widget.hostImageUrl!),
+                      fit: BoxFit.cover,
+                      opacity: 1,
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: OSpacing.s),
-          Row(
-            children: [
-              Container(
-                width: 24,
-                height: 24,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(OCornerRadius.xl),
-                  color: OColor.gray400,
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      "https://variety.com/wp-content/uploads/2019/10/shutterstock_editorial_10435445et.jpg?w=1000&h=667&crop=1",
-                    ),
-                    fit: BoxFit.cover,
-                    opacity: 1,
+                ),
+                const SizedBox(width: OSpacing.xs),
+                OText(
+                  text: widget.hostName!,
+                  style: OTextStyle.labelSmall.copyWith(
+                    color: widget.isDisabled ? OColor.gray600 : OColor.gray600,
                   ),
                 ),
-              ),
-              const SizedBox(width: OSpacing.xs),
-              OText(
-                text: "Student's Web Committee",
-                style: OTextStyle.labelSmall.copyWith(
-                  color: widget.isDisabled ? OColor.gray600 : OColor.gray600,
-                ),
-              ),
-            ],
-          ),
-          _buildTypeSpecificContent(),
-        ],
+              ],
+            ),
+            _buildTypeSpecificContent(),
+          ],
+        ),
       ),
-    );
+    };
   }
 
   Widget _buildTypeSpecificContent() {
     return switch (widget.type) {
-      EventCardType.upcomingUser => Row(
-        children: [
-        ],
-      ),
-      EventCardType.pastUser => Column(
+      EventCardType.user => Column(
         children: [
           const SizedBox(height: OSpacing.s),
           Divider(color: OColor.gray200),
@@ -576,9 +585,9 @@ class _OEventListingCardState extends State<OEventListingCard> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const SizedBox(width: OSpacing.m),
+              const SizedBox(width: OSpacing.xxs),
               OText(
-                text: "+ 350 Others",
+                text: "+ ${widget.attendance}",
                 style: OTextStyle.labelXSmall.copyWith(
                   color: widget.isDisabled ? OColor.gray400 : OColor.blue600,
                 ),
@@ -600,25 +609,10 @@ class _OEventListingCardState extends State<OEventListingCard> {
                   behavior: HitTestBehavior.opaque,
                   onTap: () {},
                   child: Center(
-                    child: Row(
-                      children: [
-                        Icon(
-                          TablerIcons.heart,
-                          color:
-                              widget.isDisabled ? OColor.gray400 : OColor.white,
-                          size: 16,
-                        ),
-                        const SizedBox(width: OSpacing.xs),
-                        OText(
-                          text: "I'm Going",
-                          style: OTextStyle.labelSmall.copyWith(
-                            color:
-                                widget.isDisabled
-                                    ? OColor.gray400
-                                    : OColor.white,
-                          ),
-                        ),
-                      ],
+                    child: OCardLabels(
+                      label: "I'm Going",
+                      icon: TablerIcons.heart,
+                      color: widget.isDisabled ? OColor.gray400 : OColor.white,
                     ),
                   ),
                 ),
@@ -627,7 +621,7 @@ class _OEventListingCardState extends State<OEventListingCard> {
           ),
         ],
       ),
-      EventCardType.upcomingAdmin => Column(
+      EventCardType.admin => Column(
         children: [
           const SizedBox(height: OSpacing.xs),
           Divider(color: OColor.gray200),
@@ -636,7 +630,7 @@ class _OEventListingCardState extends State<OEventListingCard> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               TextButton.icon(
-                onPressed: () {}, //widget.edit,
+                onPressed: widget.edit,
                 icon: Icon(
                   TablerIcons.edit,
                   size: 16,
@@ -650,7 +644,7 @@ class _OEventListingCardState extends State<OEventListingCard> {
                 ),
               ),
               TextButton.icon(
-                onPressed: () {}, // widget.delete,
+                onPressed: widget.delete,
                 icon: Icon(
                   TablerIcons.trash,
                   size: 16,
@@ -667,12 +661,11 @@ class _OEventListingCardState extends State<OEventListingCard> {
           ),
         ],
       ),
-      EventCardType.pastAdmin => Row(children: []),
     };
   }
 
-  @ override
-  void dispose(){
+  @override
+  void dispose() {
     super.dispose();
   }
 }
