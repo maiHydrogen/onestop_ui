@@ -243,6 +243,8 @@ class OEventCardCompact extends StatefulWidget {
   final String? tag1;
   final String? tag2;
   final String savedTime;
+  final Function(String feedback)?
+  onFeedbackSubmit; // Callback for feedback submission
 
   const OEventCardCompact({
     super.key,
@@ -253,6 +255,7 @@ class OEventCardCompact extends StatefulWidget {
     this.tag1,
     this.tag2,
     required this.savedTime,
+    this.onFeedbackSubmit,
   });
 
   @override
@@ -261,16 +264,36 @@ class OEventCardCompact extends StatefulWidget {
 
 class _OEventCardCompactState extends State<OEventCardCompact> {
   bool isPressed = false;
+  bool showFeedbackField = false;
+  bool feedbackSubmitted = false;
+  String submittedFeedback = '';
+  final TextEditingController _feedbackController = TextEditingController();
+
+  @override
+  void dispose() {
+    _feedbackController.dispose();
+    super.dispose();
+  }
+
+  void _handleFeedbackSubmit() {
+    if (_feedbackController.text.trim().isNotEmpty) {
+      setState(() {
+        submittedFeedback = _feedbackController.text.trim();
+        feedbackSubmitted = true;
+        showFeedbackField = false;
+      });
+
+      // Call the callback if provided
+      widget.onFeedbackSubmit?.call(submittedFeedback);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTapDown:
-          (_) =>
-              widget.isEnabled
-                  ? setState(() => isPressed = true)
-                  : null, //engage behaviour when card is tapped
+          (_) => widget.isEnabled ? setState(() => isPressed = true) : null,
       onTapUp: (_) {
         setState(() => isPressed = false);
       },
@@ -366,22 +389,22 @@ class _OEventCardCompactState extends State<OEventCardCompact> {
                           ],
                         ),
                         const SizedBox(height: OSpacing.m),
-                          Row(
-                            children: [
-                              Icon(
-                                TablerIcons.file,
-                                size: 16,
+                        Row(
+                          children: [
+                            Icon(
+                              TablerIcons.file,
+                              size: 16,
+                              color: OColor.green600,
+                            ),
+                            const SizedBox(width: OSpacing.xxs),
+                            OText(
+                              text: "Saved ${widget.savedTime} ago",
+                              style: OTextStyle.labelXSmall.copyWith(
                                 color: OColor.green600,
                               ),
-                              const SizedBox(width: OSpacing.xxs),
-                              OText(
-                                text: "Saved ${widget.savedTime} ago",
-                                style: OTextStyle.labelXSmall.copyWith(
-                                  color: OColor.green600,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ],
@@ -398,54 +421,179 @@ class _OEventCardCompactState extends State<OEventCardCompact> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  OText(
-                    text: "Enjoyed the event?",
-                    style: OTextStyle.labelXSmall.copyWith(
-                      color:
-                          widget.isEnabled ? OColor.gray800 : OColor.green600,
-                    ),
-                  ),
-                  const SizedBox(height: OSpacing.xs),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: OSpacing.xs,
-                      horizontal: OSpacing.s,
-                    ),
-                    decoration: BoxDecoration(
-                      color: OColor.white,
-                      border: Border.all(color: OColor.gray400),
-                      borderRadius: BorderRadius.circular(OCornerRadius.l),
-                    ),
-                    child: GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () {},
-                      child: Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                  // Show submitted feedback message
+                  if (feedbackSubmitted)
+                    Divider(color: OColor.gray200),
+                    if (feedbackSubmitted)
+                    Container(
+                      padding: const EdgeInsets.all(OSpacing.s),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          OText(
+                            text: "YOUR FEEDBACK",
+                            style: OTextStyle.labelXSmall.copyWith(
+                              color: OColor.gray800,
+                            ),
+                          ),
+                          const SizedBox(height: OSpacing.xs),
+                          Row(
+                            children: [
+                              Icon(
+                                TablerIcons.message_heart,
+                                size: 16,
+                                color: OColor.green600,
+                              ),
+                              const SizedBox(width: OSpacing.xxs),
+                              OText(
+                                text: "\"$submittedFeedback\"",
+                                style: OTextStyle.bodySmall.copyWith(
+                                  color: OColor.gray600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                  // Show feedback input field
+                  else if (showFeedbackField)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        OTextField(
+                          label: "Leave A Feedback",
+                          controller: _feedbackController,
+                          isParagraph: true,
+                        ),
+                        const SizedBox(height: OSpacing.s),
+                        Row(
                           children: [
-                            OText(
-                              text: "Submit a Feedback",
-                              style: OTextStyle.labelSmall.copyWith(
-                                color:
-                                    widget.isEnabled
-                                        ? OColor.green600
-                                        : OColor.gray400,
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    showFeedbackField = false;
+                                    _feedbackController.clear();
+                                  });
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: OSpacing.xs,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: OColor.white,
+                                    border: Border.all(color: OColor.gray400),
+                                    borderRadius: BorderRadius.circular(
+                                      OCornerRadius.l,
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: OText(
+                                      text: "Cancel",
+                                      style: OTextStyle.labelSmall.copyWith(
+                                        color: OColor.gray600,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
-                            const SizedBox(width: OSpacing.xs),
-                            Icon(
-                              TablerIcons.message_heart,
-                              color:
-                                  widget.isEnabled
-                                      ? OColor.green600
-                                      : OColor.gray400,
-                              size: 16,
+                            const SizedBox(width: OSpacing.s),
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: _handleFeedbackSubmit,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: OSpacing.xs,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: OColor.green600,
+                                    borderRadius: BorderRadius.circular(
+                                      OCornerRadius.l,
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: OText(
+                                      text: "Submit",
+                                      style: OTextStyle.labelSmall.copyWith(
+                                        color: OColor.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
                           ],
                         ),
-                      ),
+                      ],
+                    )
+                  // Show initial feedback button
+                  else
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        OText(
+                          text: "Enjoyed the event?",
+                          style: OTextStyle.labelXSmall.copyWith(
+                            color:
+                                widget.isEnabled
+                                    ? OColor.gray800
+                                    : OColor.green600,
+                          ),
+                        ),
+                        const SizedBox(height: OSpacing.xs),
+                        GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap:
+                              widget.isEnabled
+                                  ? () {
+                                    setState(() {
+                                      showFeedbackField = true;
+                                    });
+                                  }
+                                  : null,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: OSpacing.xs,
+                              horizontal: OSpacing.s,
+                            ),
+                            decoration: BoxDecoration(
+                              color: OColor.white,
+                              border: Border.all(color: OColor.gray400),
+                              borderRadius: BorderRadius.circular(
+                                OCornerRadius.l,
+                              ),
+                            ),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  OText(
+                                    text: "Submit a Feedback",
+                                    style: OTextStyle.labelSmall.copyWith(
+                                      color:
+                                          widget.isEnabled
+                                              ? OColor.green600
+                                              : OColor.gray400,
+                                    ),
+                                  ),
+                                  const SizedBox(width: OSpacing.xs),
+                                  Icon(
+                                    TablerIcons.message_heart,
+                                    color:
+                                        widget.isEnabled
+                                            ? OColor.green600
+                                            : OColor.gray400,
+                                    size: 16,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
                 ],
               ),
           ],
