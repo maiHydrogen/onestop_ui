@@ -18,10 +18,21 @@ class CardsDemo extends StatelessWidget {
             tag1: "TAG 1",
             tag2: "TAG 2",
             savedTime: '30 min',
+            onFeedbackSubmit: (feedback) {},
           ),
           const SizedBox(height: OSpacing.s),
           OEventCardCompact(
             isEnabled: false,
+            isFeedbackOn: true,
+            title: 'Card header',
+            subText: 'Sub-text',
+            tag1: "TAG 1",
+            tag2: "TAG 2",
+            savedTime: '30 min',
+          ),
+          const SizedBox(height: OSpacing.s),
+          OEventCardCompact(
+            isEnabled: true,
             isFeedbackOn: false,
             title: 'Card Header',
             subText: 'Sub-text',
@@ -36,24 +47,24 @@ class CardsDemo extends StatelessWidget {
             type: EventCardType.admin,
             onTap: () {},
             eventImageUrl:
-            "https://variety.com/wp-content/uploads/2019/10/shutterstock_editorial_10435445et.jpg?w=1000&h=667&crop=1",
+                "https://variety.com/wp-content/uploads/2019/10/shutterstock_editorial_10435445et.jpg?w=1000&h=667&crop=1",
             location: '5G2',
             startTime: '6:00 pm',
             tag1: "TAG 1",
             tag2: "TAG 2",
             isSaved: true,
             isEditable: true,
-            delete: (){},
-            edit: (){},
+            delete: () {},
+            edit: () {},
             attendance: 350,
             endtime: "8:00 pm",
             feedbacks: 35,
             views: 850,
-            likes: 350,tagIcon1:TablerIcons
-              .arrow_rotary_first_left ,
-            tagIcon2: TablerIcons
-                .arrow_rotary_first_left,
-            hostImageUrl: "https://variety.com/wp-content/uploads/2019/10/shutterstock_editorial_10435445et.jpg?w=1000&h=667&crop=1",
+            likes: 350,
+            tagIcon1: TablerIcons.arrow_rotary_first_left,
+            tagIcon2: TablerIcons.arrow_rotary_first_left,
+            hostImageUrl:
+                "https://variety.com/wp-content/uploads/2019/10/shutterstock_editorial_10435445et.jpg?w=1000&h=667&crop=1",
             hostName: "SWC IITG",
           ),
           OEventListingCard.large(
@@ -69,18 +80,18 @@ class CardsDemo extends StatelessWidget {
             tag2: "TAG 2",
             isSaved: true,
             isDisabled: true,
-            delete: (){},
-            edit: (){},
+            delete: () {},
+            edit: () {},
             attendance: 350,
             endtime: "8:00 pm",
             feedbacks: 35,
             views: 850,
-            likes: 350,tagIcon1:TablerIcons
-              .arrow_rotary_first_left ,
-            tagIcon2: TablerIcons
-                .arrow_rotary_first_left,
-            hostImageUrl: "https://variety.com/wp-content/uploads/2019/10/shutterstock_editorial_10435445et.jpg?w=1000&h=667&crop=1",
-              hostName: "SWC IITG",
+            likes: 350,
+            tagIcon1: TablerIcons.arrow_rotary_first_left,
+            tagIcon2: TablerIcons.arrow_rotary_first_left,
+            hostImageUrl:
+                "https://variety.com/wp-content/uploads/2019/10/shutterstock_editorial_10435445et.jpg?w=1000&h=667&crop=1",
+            hostName: "SWC IITG",
           ),
           const SizedBox(height: OSpacing.s),
           OEventListingCard.large(
@@ -95,17 +106,17 @@ class CardsDemo extends StatelessWidget {
             tag1: "TAG 1",
             tag2: "TAG 2",
             isSaved: false,
-            delete: (){},
-            edit: (){},
+            delete: () {},
+            edit: () {},
             attendance: 350,
             endtime: "8:00 pm",
             feedbacks: 35,
             views: 850,
-            likes: 350,tagIcon1:TablerIcons
-              .arrow_rotary_first_left ,
-            tagIcon2: TablerIcons
-                .arrow_rotary_first_left,
-            hostImageUrl: "https://variety.com/wp-content/uploads/2019/10/shutterstock_editorial_10435445et.jpg?w=1000&h=667&crop=1",
+            likes: 350,
+            tagIcon1: TablerIcons.arrow_rotary_first_left,
+            tagIcon2: TablerIcons.arrow_rotary_first_left,
+            hostImageUrl:
+                "https://variety.com/wp-content/uploads/2019/10/shutterstock_editorial_10435445et.jpg?w=1000&h=667&crop=1",
             hostName: "SWC IITG",
           ),
           const SizedBox(height: OSpacing.s),
@@ -120,7 +131,6 @@ class CardsDemo extends StatelessWidget {
             isSaved: true,
             attendance: 350,
             endtime: "8:00 pm",
-
           ),
           const SizedBox(height: OSpacing.s),
           OEventListingCard.medium(
@@ -146,7 +156,6 @@ class CardsDemo extends StatelessWidget {
             tag1: "TAG 1",
             tag2: "TAG 2",
             startTime: '6:00 pm',
-
           ),
           const SizedBox(height: OSpacing.s),
           OEventListingCard.small(
