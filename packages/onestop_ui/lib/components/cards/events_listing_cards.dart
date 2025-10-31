@@ -14,6 +14,7 @@ class OEventListingCard extends StatefulWidget {
   final VoidCallback? onTap;
   final bool isDisabled;
   final bool? isSaved;
+  final bool? isEditable;
   final String? eventImageUrl;
   final String startTime;
   final String? endtime;
@@ -55,7 +56,7 @@ class OEventListingCard extends StatefulWidget {
     this.hostImageUrl,
     this.hostName,
     this.delete,
-    this.edit,
+    this.edit, this.isEditable,
   });
   const OEventListingCard.small({
     Key? key,
@@ -121,6 +122,7 @@ class OEventListingCard extends StatefulWidget {
     bool isDisabled = false,
     required String startTime,
     bool isSaved = false,
+    bool isEditable = false,
     required String eventImageUrl,
     int? attendance,
     int? likes,
@@ -146,6 +148,7 @@ class OEventListingCard extends StatefulWidget {
          onTap: onTap,
          isDisabled: isDisabled,
          isSaved: isSaved,
+         isEditable: isEditable,
          eventImageUrl: eventImageUrl,
          attendance: attendance,
          likes: likes,
@@ -179,8 +182,10 @@ class _OEventListingCardState extends State<OEventListingCard> {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTapDown: (_) {
-        widget.isDisabled ? null : setState(() => _isPressed = true);
-        widget.isDisabled ? null : widget.onTap;
+        if (!widget.isDisabled) {
+          setState(() => _isPressed = true);
+          widget.onTap?.call();
+        }
       },
       onTapUp: (_) {
         setState(() => _isPressed = false);
@@ -623,9 +628,13 @@ class _OEventListingCardState extends State<OEventListingCard> {
       ),
       EventCardType.admin => Column(
         children: [
+          if(widget.isEditable == true)
           const SizedBox(height: OSpacing.xs),
+          if(widget.isEditable == true)
           Divider(color: OColor.gray200),
+          if(widget.isEditable == true)
           const SizedBox(height: OSpacing.xs),
+          if(widget.isEditable == true)
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

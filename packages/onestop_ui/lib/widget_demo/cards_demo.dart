@@ -33,6 +33,32 @@ class CardsDemo extends StatelessWidget {
           OEventListingCard.large(
             title: "Flutter Workshop",
             date: "Nov 1, 2025",
+            type: EventCardType.admin,
+            onTap: () {},
+            eventImageUrl:
+            "https://variety.com/wp-content/uploads/2019/10/shutterstock_editorial_10435445et.jpg?w=1000&h=667&crop=1",
+            location: '5G2',
+            startTime: '6:00 pm',
+            tag1: "TAG 1",
+            tag2: "TAG 2",
+            isSaved: true,
+            isEditable: true,
+            delete: (){},
+            edit: (){},
+            attendance: 350,
+            endtime: "8:00 pm",
+            feedbacks: 35,
+            views: 850,
+            likes: 350,tagIcon1:TablerIcons
+              .arrow_rotary_first_left ,
+            tagIcon2: TablerIcons
+                .arrow_rotary_first_left,
+            hostImageUrl: "https://variety.com/wp-content/uploads/2019/10/shutterstock_editorial_10435445et.jpg?w=1000&h=667&crop=1",
+            hostName: "SWC IITG",
+          ),
+          OEventListingCard.large(
+            title: "Flutter Workshop",
+            date: "Nov 1, 2025",
             type: EventCardType.user,
             onTap: () {},
             eventImageUrl:
