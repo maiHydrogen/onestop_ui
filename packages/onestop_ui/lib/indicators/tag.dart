@@ -39,7 +39,6 @@ class OTag extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 24,
-      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(12),
