@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:onestop_ui/components/ListButtons/ToggleButton.dart';
 import 'package:onestop_ui/index.dart';
 
 void main() async {
@@ -37,11 +36,6 @@ class _MyAppState extends State<MyApp> {
   }
   @override
   Widget build(BuildContext context) {
-    final List<String> demoImages = [
-      'https://picsum.photos/400/200?image=1',
-      'https://picsum.photos/400/200?image=2',
-      'https://picsum.photos/400/200?image=3',
-    ];
     return MaterialApp(
       title: 'OneStop UI Demo',
       debugShowCheckedModeBanner: false,

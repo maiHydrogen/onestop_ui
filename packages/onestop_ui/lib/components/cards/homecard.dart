@@ -43,6 +43,7 @@ class _OHomeCardState extends State<OHomeCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.all(OSpacing.s),
       decoration: BoxDecoration(
         color: _isPressed ? OColor.gray200 : OColor.white,
         borderRadius: BorderRadius.all(Radius.circular(OCornerRadius.l)),
@@ -55,6 +56,7 @@ class _OHomeCardState extends State<OHomeCard> {
             icon: TablerIcons.arrow_rotary_first_left,
             onArrowPressed: widget.onArrowPressed,
           ),
+          const SizedBox(height: OSpacing.l),
           GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTapDown:
@@ -68,6 +70,7 @@ class _OHomeCardState extends State<OHomeCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 OLabelGroups(labelItems: widget.labelItems, isSmall: true),
+                const SizedBox(height: OSpacing.xxs),
                 OListGroups(
                   list: widget.listItems,
                   sublist: widget.subListItems,
@@ -81,40 +84,38 @@ class _OHomeCardState extends State<OHomeCard> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 if (widget.activateButton1 == true)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: OSpacing.s),
-                    child: MaterialButton(
-                      onPressed: widget.buttonAction1,
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(color: OColor.gray300, width: 1),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(OCornerRadius.l),
-                        ),
+                  const SizedBox(height: OSpacing.xxs),
+                if (widget.activateButton1 == true)
+                  MaterialButton(
+                    onPressed: widget.buttonAction1,
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(color: OColor.gray300, width: 1),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(OCornerRadius.l),
                       ),
-                      child: OText(
-                        text: 'Label 1',
-                        style: OTextStyle.labelSmall.copyWith(
-                          color: OColor.green600,
-                        ),
+                    ),
+                    child: OText(
+                      text: 'Label 1',
+                      style: OTextStyle.labelSmall.copyWith(
+                        color: OColor.green600,
                       ),
                     ),
                   ),
                 if (widget.activateButton2 == true)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: OSpacing.s),
-                    child: MaterialButton(
-                      onPressed: widget.buttonAction2,
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(color: OColor.gray300, width: 1),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(OCornerRadius.l),
-                        ),
+                  const SizedBox(height: OSpacing.xxs),
+                if (widget.activateButton2 == true)
+                  MaterialButton(
+                    onPressed: widget.buttonAction2,
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(color: OColor.gray300, width: 1),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(OCornerRadius.l),
                       ),
-                      child: OText(
-                        text: 'Label 2',
-                        style: OTextStyle.labelSmall.copyWith(
-                          color: OColor.green600,
-                        ),
+                    ),
+                    child: OText(
+                      text: 'Label 2',
+                      style: OTextStyle.labelSmall.copyWith(
+                        color: OColor.green600,
                       ),
                     ),
                   ),
@@ -171,109 +172,74 @@ class _OHomeCardLargeState extends State<OHomeCardLarge> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(OSpacing.xs),
-      child: Stack(
-        children: [
-          GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTapDown:
-                (_) => setState(
-                  () => _isPressed = true,
-                ), //engage behaviour when search bar is tapped
-            onTapUp: (_) {
-              setState(() => _isPressed = false);
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: OSpacing.xxs,
-                vertical: OSpacing.s,
+      padding: const EdgeInsets.all(OSpacing.xxs),
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTapDown:
+            (_) => setState(
+              () => _isPressed = true,
+            ), //engage behaviour when search bar is tapped
+        onTapUp: (_) {
+          setState(() => _isPressed = false);
+        },
+        child: Container(
+          padding: const EdgeInsets.all(OSpacing.s),
+          decoration: BoxDecoration(
+            color: _isPressed ? OColor.gray200 : OColor.white,
+            borderRadius: BorderRadius.all(Radius.circular(OCornerRadius.l)),
+            border: Border.all(color: OColor.gray200, width: 1),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              OCardHeader(
+                heading: widget.heading,
+                subheading: widget.subheading,
+                icon: widget.icon,
+                onClickArrow: true,
+                onArrowPressed: widget.onArrowPressed,
               ),
-              decoration: BoxDecoration(
-                color: _isPressed ? OColor.gray200 : OColor.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(OCornerRadius.l),
+              const SizedBox(height: OSpacing.m),
+              OText(
+                text: widget.mainText,
+                style: OTextStyle.headingLarge.copyWith(color: OColor.gray800),
+              ),
+              const SizedBox(height: OSpacing.xxs),
+              OText(
+                text: widget.cardSubText,
+                style: OTextStyle.bodySmall.copyWith(color: OColor.gray600),
+              ),
+              const SizedBox(height: OSpacing.m),
+              ConstrainedBox(
+                constraints: BoxConstraints(maxHeight: widget.blockHeight),
+                child: CarouselView(
+                  enableSplash: false,
+                  itemExtent: widget.blockWidth,
+                  shrinkExtent: widget.blockWidth,
+                  scrollDirection: Axis.horizontal,
+                  itemSnapping: true,
+                  padding: const EdgeInsets.only(
+                    right: OSpacing.xxs,
+                    top: OSpacing.xs,
+                    bottom: OSpacing.xs,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(OCornerRadius.s),
+                  ),
+                  children:
+                      widget.dataMap.entries.map((entry) {
+                        return OCardBlock(
+                          header: entry.key,
+                          blockItems: entry.value,
+                          color: OColor.gray100,
+                        );
+                      }).toList(),
                 ),
-                border: Border.all(color: OColor.gray200, width: 1),
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  OCardHeader(
-                    heading: widget.heading,
-                    subheading: widget.subheading,
-                    icon: widget.icon,
-                    onClickArrow: false,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: OSpacing.s,
-                      vertical: OSpacing.xs,
-                    ),
-                    child: OText(
-                      text: widget.mainText,
-                      style: OTextStyle.headingLarge.copyWith(
-                        color: OColor.gray800,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: OSpacing.s,
-                      vertical: OSpacing.xxs,
-                    ),
-                    child: OText(
-                      text: widget.cardSubText,
-                      style: OTextStyle.bodySmall.copyWith(
-                        color: OColor.gray600,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: OSpacing.xs),
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxHeight: widget.blockHeight,
-                      ),
-                      child: CarouselView(
-                        enableSplash: false,
-                        itemExtent: widget.blockWidth,
-                        shrinkExtent: widget.blockWidth,
-                        scrollDirection: Axis.horizontal,
-                        itemSnapping: true,
-                        padding: const EdgeInsets.only(
-                          left: OSpacing.xxs,
-                          top: OSpacing.xs,
-                          bottom: OSpacing.xs,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(OCornerRadius.s),
-                        ),
-                        children:
-                            widget.dataMap.entries.map((entry) {
-                              return OCardBlock(
-                                  header: entry.key,
-                                  blockItems: entry.value,
-                                  color: OColor.gray100,
-                                );
-                            }).toList(),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            ],
           ),
-          Positioned(
-            top: 10,
-            right: 10,
-            child: IconButton(
-              icon: Icon(TablerIcons.chevron_right, color: OColor.gray600),
-              onPressed: widget.onArrowPressed,
-              iconSize: 24,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

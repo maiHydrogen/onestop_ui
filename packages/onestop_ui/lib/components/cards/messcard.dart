@@ -35,7 +35,7 @@ class OMessMenuCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: OSpacing.s),
+            padding: const EdgeInsets.all(OSpacing.s),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

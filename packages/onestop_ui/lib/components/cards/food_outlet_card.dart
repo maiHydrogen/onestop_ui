@@ -43,7 +43,7 @@ class _FoodOutletCardState extends State<FoodOutletCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(OSpacing.xs),
+      padding: const EdgeInsets.all(OSpacing.xxs),
       child: Stack(
         children: [
           GestureDetector(
@@ -57,6 +57,7 @@ class _FoodOutletCardState extends State<FoodOutletCard> {
               setState(() => _isPressed = false);
             },
             child: Container(
+              padding: const EdgeInsets.all(OSpacing.s),
               decoration: BoxDecoration(
                 color: _isPressed ? OColor.gray200 : OColor.white,
                 borderRadius: BorderRadius.all(
@@ -67,57 +68,52 @@ class _FoodOutletCardState extends State<FoodOutletCard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: OSpacing.xs,
-                      vertical: OSpacing.m,
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 48,
-                          height: 48,
-                          decoration: BoxDecoration(
-                            color: OColor.gray400,
-                            image: DecorationImage(
-                              image: NetworkImage(widget.imageUrl),
-                              fit: BoxFit.cover,
-                              opacity: widget.isEnabled ? 1 : 0.2,
+                  Row(
+                    children: [
+                      Container(
+                        width: 48,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: OColor.gray400,
+                          image: DecorationImage(
+                            image: NetworkImage(widget.imageUrl),
+                            fit: BoxFit.cover,
+                            opacity: widget.isEnabled ? 1 : 0.2,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: OSpacing.s,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            OText(
+                              text: widget.heading,
+                              style: OTextStyle.labelMedium.copyWith(
+                                color:
+                                    widget.isEnabled
+                                        ? OColor.gray800
+                                        : OColor.gray600,
+                              ),
                             ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: OSpacing.s,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              OText(
-                                text: widget.heading,
-                                style: OTextStyle.labelMedium.copyWith(
-                                  color:
-                                      widget.isEnabled
-                                          ? OColor.gray800
-                                          : OColor.gray600,
-                                ),
+                            const SizedBox(height: OSpacing.xxs),
+                            OText(
+                              text: widget.subHeading,
+                              style: OTextStyle.bodySmall.copyWith(
+                                color:
+                                    widget.isEnabled
+                                        ? OColor.gray800
+                                        : OColor.gray300,
                               ),
-                              const SizedBox(height: OSpacing.xxs),
-                              OText(
-                                text: widget.subHeading,
-                                style: OTextStyle.bodySmall.copyWith(
-                                  color:
-                                      widget.isEnabled
-                                          ? OColor.gray800
-                                          : OColor.gray300,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
+                  const SizedBox(height: OSpacing.m,),
                   if (widget.tag != null)
                     OTag(
                       type: widget.isEnabled?TagType.accentColor:TagType.neutral,
@@ -125,29 +121,25 @@ class _FoodOutletCardState extends State<FoodOutletCard> {
                       label: widget.tag!,
                       trail: TablerIcons.arrow_rotary_first_left,
                     ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: OSpacing.xs),
-                    child: OCardLabels(
-                      label: widget.subLabelText1,
-                      icon: widget.subLabelIcon1,
-                      color: widget.isEnabled ? OColor.gray600 : OColor.gray300,
-                    ),
+                  const SizedBox(height: OSpacing.m,),
+                  OCardLabels(
+                    label: widget.subLabelText1,
+                    icon: widget.subLabelIcon1,
+                    color: widget.isEnabled ? OColor.gray600 : OColor.gray300,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: OSpacing.s),
-                    child: OCardLabels(
-                      label: widget.subLabelText2,
-                      icon: widget.subLabelIcon2,
-                      color: widget.isEnabled ? OColor.gray600 : OColor.gray300,
-                    ),
+                  const SizedBox(height: OSpacing.xxs,),
+                  OCardLabels(
+                    label: widget.subLabelText2,
+                    icon: widget.subLabelIcon2,
+                    color: widget.isEnabled ? OColor.gray600 : OColor.gray300,
                   ),
                 ],
               ),
             ),
           ),
           Positioned(
-            top: 16,
-            right: 10,
+            top: 12,
+            right: 0,
             child: IconButton(
               icon: Icon(
                 TablerIcons.chevron_right,

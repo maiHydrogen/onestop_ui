@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+import 'package:onestop_ui/components/cards/travel_card.dart';
 import 'package:onestop_ui/index.dart';
 
 class CardsDemo extends StatelessWidget {
@@ -10,6 +11,24 @@ class CardsDemo extends StatelessWidget {
     return SizedBox(
       child: Column(
         children: [
+          OTravelCard(
+            dataMap: {
+              // this is the map of data which has to be mapped into the blocks of main home card
+              'breakfast': ['Eggs', 'Toast', 'Coffee', 'Cereal'],
+              'lunch': ['Sandwich', 'Salad', 'Soup', 'Pizza'],
+              'dinner': ['Pasta', 'Chicken', 'Rice', 'Vegetables'],
+              'snacks': ['Chips', 'Cookies', 'Fruits', 'Nuts'],
+              'beverages': ['Water', 'Juice', 'Soda', 'Tea'],
+            },
+            blockHeight:
+            140, // adjust the height  of the block containing item list
+            blockWidth:
+            150, // adjust the width of the block containing item list
+            mainText: "Main Card Information",
+            cardSubText: "Card Sub Text",
+            onArrowPressed:
+                () {}, isFerry: true, isEnabled: true,
+          ),
           OEventCardCompact(
             isEnabled: true,
             isFeedbackOn: true,
