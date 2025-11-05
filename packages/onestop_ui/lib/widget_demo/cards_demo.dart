@@ -12,22 +12,31 @@ class CardsDemo extends StatelessWidget {
       child: Column(
         children: [
           OTravelCard(
-            dataMap: {
-              // this is the map of data which has to be mapped into the blocks of main home card
-              'breakfast': ['Eggs', 'Toast', 'Coffee', 'Cereal'],
-              'lunch': ['Sandwich', 'Salad', 'Soup', 'Pizza'],
-              'dinner': ['Pasta', 'Chicken', 'Rice', 'Vegetables'],
-              'snacks': ['Chips', 'Cookies', 'Fruits', 'Nuts'],
-              'beverages': ['Water', 'Juice', 'Soda', 'Tea'],
-            },
-            blockHeight:
-            140, // adjust the height  of the block containing item list
-            blockWidth:
-            150, // adjust the width of the block containing item list
-            mainText: "Main Card Information",
-            cardSubText: "Card Sub Text",
-            onArrowPressed:
-                () {}, isFerry: true, isEnabled: true,
+            onArrowPressed: () {},
+            isFerry: true,
+            isEnabled: false,
+            ferryToCity: {'breakfast': 34, 'lunch': 23, 'dinner': 6},
+            ferryFromCity: {'breakfast': 34, 'lunch': 23, 'dinner': 6},
+            busToCity: {'breakfast': 34,  'dinner': 6},
+            busFromCity: {'breakfast': 34, 'lunch': 23, },
+          ),
+          OTravelCard(
+            onArrowPressed: () {},
+            isFerry:false,
+            isEnabled: true,
+            ferryToCity: {'breakfast': 34, 'lunch': 23, 'dinner': 6},
+            ferryFromCity: {'breakfast': 34, 'lunch': 23, 'dinner': 6},
+            busToCity: {'breakfast': 34,  'dinner': 6},
+            busFromCity: {'breakfast': 34, 'lunch': 23, },
+          ),
+          OTravelCard(
+            onArrowPressed: () {},
+            isFerry: true,
+            isEnabled: true,
+            ferryToCity: {'breakfast': 34, 'lunch': 23, 'dinner': 6},
+            ferryFromCity: {'breakfast': 34, 'lunch': 23, 'dinner': 6},
+            busToCity: {'breakfast': 34,  'dinner': 6},
+            busFromCity: {'breakfast': 34, 'lunch': 23, },
           ),
           OEventCardCompact(
             isEnabled: true,
