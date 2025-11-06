@@ -10,13 +10,13 @@ class OnestopImageGallery extends StatelessWidget {
   final BoxShape shape;
   final ImagePreviewType previewType;
   const OnestopImageGallery({
-    Key? key,
+    super.key,
     required this.imageUrls,
     this.imageSize = 100,
     this.scrollDirection = Axis.horizontal,
     this.shape = BoxShape.rectangle,
     this.previewType = ImagePreviewType.square,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -60,11 +60,11 @@ class OnestopLargeImageGallery extends StatelessWidget {
   final ImagePreviewType previewType;
 
   const OnestopLargeImageGallery({
-    Key? key,
+    super.key,
     required this.imageUrls,
     required this.previewType,
     // this.previewType = ImagePreviewType.square,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -116,11 +116,11 @@ class OnestopMediumImageGallery extends StatelessWidget {
   final ImagePreviewType previewType;
 
   const OnestopMediumImageGallery({
-    Key? key,
+    super.key,
     required this.imageUrls,
     required this.previewType,
     // this.previewType = ImagePreviewType.square,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -137,11 +137,11 @@ class SingleImageGallery extends StatelessWidget {
   final ImagePreviewType previewType;
 
   const SingleImageGallery({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.previewType,
     // this.previewType = ImagePreviewType.square,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onestop_ui/constants/spacing.dart';
 import 'package:onestop_ui/store/theme_store.dart';
-import '../components/ListButtons/ToggleButton.dart';
+import '../components/ListButtons/toggle_button.dart';
 
 class ToggleDemo extends StatelessWidget {
   const ToggleDemo({super.key});

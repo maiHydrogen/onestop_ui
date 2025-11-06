@@ -47,7 +47,7 @@ export 'widget_demo/buttons_demo.dart';
 export 'list/list_export.dart';
 export 'widget_demo/list_demo.dart';
 export 'store/theme_store.dart';
-export 'components/ListButtons/ToggleButton.dart';
+export 'components/ListButtons/toggle_button.dart';
 export 'widget_demo/toggle_list_demo.dart';
 
 // modals
