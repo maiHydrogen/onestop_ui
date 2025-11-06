@@ -10,6 +10,50 @@ class CardsDemo extends StatelessWidget {
     return SizedBox(
       child: Column(
         children: [
+          OTravelSuggestionCard(
+            isEnabled: true,
+            body:
+                'Flutter follows a unidirectional data flow - data flows down from parent to child through constructor parameters. When a child needs to send data back up to the parent, it uses callbacks',
+            goToGuide: () {},
+            warning:
+                "Flutter follows a unidirectional data flow - data flows down from parent to child through constructor parameters. When a child needs to send data back up to the parent, it uses callbacks",
+          ),
+          OTravelSwitch(
+            isEnabled: true,
+            origin: 'City',
+            destination: 'City',
+            originStop: 'Nehru Park',
+            destinationStop: 'Biotech',
+            isOriginIitg: false,
+            // this widget also contains an onSwap function which gives an option for what to do after swapping
+          ),
+          OTravelCard(
+            onArrowPressed: () {},
+            isFerry: true,
+            isEnabled: false,
+            ferryToCity: {'breakfast': 34, 'lunch': 23, 'dinner': 6},
+            ferryFromCity: {'breakfast': 34, 'lunch': 23, 'dinner': 6},
+            busToCity: {'breakfast': 34, 'dinner': 6},
+            busFromCity: {'breakfast': 34, 'lunch': 23},
+          ),
+          OTravelCard(
+            onArrowPressed: () {},
+            isFerry: false,
+            isEnabled: true,
+            ferryToCity: {'breakfast': 34, 'lunch': 23, 'dinner': 6},
+            ferryFromCity: {'breakfast': 34, 'lunch': 23, 'dinner': 6},
+            busToCity: {'breakfast': 34, 'dinner': 6},
+            busFromCity: {'breakfast': 34, 'lunch': 23},
+          ),
+          OTravelCard(
+            onArrowPressed: () {},
+            isFerry: true,
+            isEnabled: true,
+            ferryToCity: {'breakfast': 34, 'lunch': 23, 'dinner': 6},
+            ferryFromCity: {'breakfast': 34, 'lunch': 23, 'dinner': 6},
+            busToCity: {'breakfast': 34, 'dinner': 6},
+            busFromCity: {'breakfast': 34, 'lunch': 23},
+          ),
           OEventCardCompact(
             isEnabled: true,
             isFeedbackOn: true,

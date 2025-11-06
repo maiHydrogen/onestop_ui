@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../utils/styles.dart';
 import '../utils/colors.dart';
+import '../utils/styles.dart';
 import 'package:intl/intl.dart';
 import '../constants/spacing.dart';
 

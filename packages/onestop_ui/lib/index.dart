@@ -18,6 +18,7 @@ export 'components/cardcomponents/label.dart';
 export 'components/cardcomponents/header.dart';
 export 'components/cardcomponents/card_list.dart';
 export 'components/cardcomponents/cardblock.dart';
+export 'components/cardcomponents/travel_switch.dart';
 
 //Cards
 export 'components/cards/homecard.dart';
@@ -28,6 +29,8 @@ export 'components/cards/events_card.dart';
 export 'components/cards/lost_n_found.dart';
 export 'components/cards/buy_n_sell.dart';
 export 'components/cards/events_listing_cards.dart';
+export 'components/cards/travel_card.dart';
+export 'components/cards/travel_suggestion_card.dart';
 export 'widget_demo/cards_demo.dart';
 
 export 'buttons/button_exports.dart';
@@ -46,7 +49,7 @@ export 'widget_demo/buttons_demo.dart';
 export 'list/list_export.dart';
 export 'widget_demo/list_demo.dart';
 export 'store/theme_store.dart';
-export 'components/ListButtons/ToggleButton.dart';
+export 'components/ListButtons/toggle_button.dart';
 export 'widget_demo/toggle_list_demo.dart';
 
 // modals

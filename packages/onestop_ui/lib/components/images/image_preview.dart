@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../constants/corner_radius.dart';
-import '../../constants/spacing.dart';
+
 
 enum ImagePreviewType {
   square,
@@ -19,7 +19,7 @@ class OnestopImagePreview extends StatelessWidget {
   final ImagePreviewType? previewType;
   final VoidCallback? onTap;
   const OnestopImagePreview({
-    Key? key,
+    super.key,
     required this.imageUrl,
     this.height,
     this.width,
@@ -29,7 +29,7 @@ class OnestopImagePreview extends StatelessWidget {
     this.borderRadius,
     this.previewType,
     this.onTap,
-  }) : super(key: key);
+  });
 
   double getHeight() {
     if (previewType != null) {

@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:onestop_ui/index.dart';
-import '../../constants/spacing.dart';
-import '../../constants/corner_radius.dart';
-import '../text.dart';
-import '../../utils/styles.dart';
 
 class ToggleWidgetList extends StatefulWidget {
   final List<Map<String, String>> items;
@@ -11,11 +7,11 @@ class ToggleWidgetList extends StatefulWidget {
   final bool isDisabled;
 
   const ToggleWidgetList({
-    Key? key,
+    super.key,
     required this.items,
     this.onToggle,
     this.isDisabled = false,
-  }) : super(key: key);
+  });
 
   @override
   State<ToggleWidgetList> createState() => _ToggleWidgetListState();

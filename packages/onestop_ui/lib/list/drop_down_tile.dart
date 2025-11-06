@@ -11,14 +11,14 @@ class DropDownField extends StatefulWidget {
   final ValueChanged<String?>? onChanged;
 
   const DropDownField({
-    Key? key,
+    super.key,
     required this.label,
     required this.hint,
     required this.items,
     this.value,
     this.isEnabled = true,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   State<DropDownField> createState() => _DropDownFieldState();
