@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
-import 'package:onestop_ui/components/cards/travel_card.dart';
 import 'package:onestop_ui/index.dart';
 
 class CardsDemo extends StatelessWidget {
@@ -11,6 +10,14 @@ class CardsDemo extends StatelessWidget {
     return SizedBox(
       child: Column(
         children: [
+          OTravelSuggestionCard(
+            isEnabled: true,
+            body:
+                'Flutter follows a unidirectional data flow - data flows down from parent to child through constructor parameters. When a child needs to send data back up to the parent, it uses callbacks',
+            goToGuide: () {},
+            warning:
+                "Flutter follows a unidirectional data flow - data flows down from parent to child through constructor parameters. When a child needs to send data back up to the parent, it uses callbacks",
+          ),
           OTravelSwitch(
             isEnabled: true,
             origin: 'City',
