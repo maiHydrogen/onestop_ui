@@ -18,6 +18,7 @@ export 'components/cardcomponents/label.dart';
 export 'components/cardcomponents/header.dart';
 export 'components/cardcomponents/card_list.dart';
 export 'components/cardcomponents/cardblock.dart';
+export 'components/cardcomponents/travel_switch.dart';
 
 //Cards
 export 'components/cards/homecard.dart';
