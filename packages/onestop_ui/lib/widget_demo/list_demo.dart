@@ -15,42 +15,57 @@ class ListDemo extends StatefulWidget {
 // You can contact me if you got say anthing ✌️
 // But yeah code speaks louder! (-someone said)
 
+// class _ListDemoState extends State<ListDemo> {
+//   bool isNotificationEnabled = false;
+//   bool isDarkModeEnabled = true;
+//   List<String> options = [
+//     'List Item',
+//     'List Item',
+//     'List Item',
+//     'List Item',
+//     'List Item',
+//     'List Item',
+//     'List Item',
+//     'List Item',
+//   ];
 class _ListDemoState extends State<ListDemo> {
   bool isNotificationEnabled = false;
   bool isDarkModeEnabled = true;
+
   List<String> options = [
-    'Option 1',
-    'Option 2',
-    'Option 3',
-    'Option 5',
-    'Option 6',
-    'Option 7',
-    'Option 8',
-    'Option 9',
-    'Option 10',
-    'Option 11',
-    'Option 12',
-    'Option 13',
-    'Option 14',
-    'Option 15',
+    'List Item 1',
+    'List Item 2',
+    'List Item 3',
+    'List Item 4',
+    'List Item 5',
+    'List Item 6',
   ];
+
+  String? selectedItem;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        DropdownField(
-          label: 'Label',
-          hint: 'hint',
-          onChanged: (String? value) {},
+        DropDownField(
+          label: 'Active Dropdown',
+          hint: 'Choose',
           items: options,
+          value: selectedItem,
+          onChanged: (String? value) {
+            setState(() {
+              selectedItem = value;
+            });
+          },
         ),
-        DropdownField(
+        const SizedBox(height: 20),
+        DropDownField(
           isEnabled: false,
-          label: 'Label',
-          hint: 'hint',
+          label: 'Disabled Dropdown',
+          hint: 'Choose',
+          items: const ['Choose'],
           onChanged: (String? value) {},
-          items: ['Option 15'],
         ),
         Tile(
           label: "Label",

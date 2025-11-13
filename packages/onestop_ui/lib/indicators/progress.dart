@@ -16,7 +16,7 @@ class StepProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: OSpacing.l),
       child: Column(
         children: [
           SizedBox(
@@ -78,13 +78,11 @@ class StepProgressIndicator extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 8),
-
+          const SizedBox(height: OSpacing.xs),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: List.generate(numberOfSteps, (index) {
               return SizedBox(
-                width: 56,
                 child: Text(
                   stepNames[index],
                   textAlign: TextAlign.center,

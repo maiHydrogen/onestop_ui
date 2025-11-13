@@ -140,6 +140,31 @@ class IndicatorsDemo extends StatelessWidget {
             headline: "HEADLINE TEXT",
             paragraph: "paragraph",
           ),
+          SizedBox(height: 20),
+
+          //SNACKBAR
+          OSnackbar(
+            type: SnackbarType.positive,
+            message: "Operation completed successfully!",
+          ),
+          SizedBox(height: 10),
+
+          OSnackbar(
+            type: SnackbarType.negative,
+            message: "An error occurred. Please try again.",
+          ),
+          SizedBox(height: 10),
+
+          OSnackbar(
+            type: SnackbarType.warning,
+            message: "Warning: This action cannot be undone.",
+          ),
+          SizedBox(height: 10),
+
+          OSnackbar(
+            type: SnackbarType.accent,
+            message: "Information: Check your settings.",
+          ),
           SizedBox(height: 10),
         ],
       ),

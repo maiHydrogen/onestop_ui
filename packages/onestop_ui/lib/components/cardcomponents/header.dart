@@ -20,10 +20,6 @@ class OCardHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: OSpacing.s,
-        vertical: OSpacing.xxs,
-      ),
       color: Colors.transparent,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,

@@ -18,10 +18,6 @@ class OCardLabels extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: OSpacing.xs,
-        vertical: OSpacing.xxs,
-      ),
       decoration: BoxDecoration(color: Colors.transparent),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -29,9 +25,9 @@ class OCardLabels extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Icon(icon, size: 16, color: color),
-          SizedBox(width: OSpacing.s),
+          SizedBox(width: OSpacing.xxs),
           OText(
-            text: label,
+            text: isSmall ? label.toUpperCase() : label,
             style:
                 isSmall
                     ? OTextStyle.labelXSmall.copyWith(color: color)
@@ -59,31 +55,25 @@ class OLabelGroups extends StatelessWidget {
         width: double.minPositive,
       ); // Return nothing if the list is empty
     }
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: OSpacing.s,
-        vertical: OSpacing.xxs,
-      ),
-      child: Wrap(
-        // Controls the vertical gap between lines
-        runSpacing: OSpacing.xs,
-        alignment: WrapAlignment.spaceBetween,
-        crossAxisAlignment: WrapCrossAlignment.center,
-        children: [
-          for (int i = 0; i < labelItems.length; i++) ...[
-            OText(
-              text: isSmall ? labelItems[i].toUpperCase() : labelItems[i],
-              style:
-                  isSmall
-                      ? OTextStyle.labelXSmall.copyWith(color: OColor.gray600)
-                      : OTextStyle.labelSmall.copyWith(color: OColor.gray600),
-            ),
-            if (i < labelItems.length - 1) ...{
-              Icon(TablerIcons.point_filled, size: 4, color: OColor.gray600),
-            },
-          ],
+    return Wrap(
+      // Controls the vertical gap between lines
+      runSpacing: OSpacing.xs,
+      alignment: WrapAlignment.spaceBetween,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        for (int i = 0; i < labelItems.length; i++) ...[
+          OText(
+            text: isSmall ? labelItems[i].toUpperCase() : labelItems[i],
+            style:
+                isSmall
+                    ? OTextStyle.labelXSmall.copyWith(color: OColor.gray600)
+                    : OTextStyle.labelSmall.copyWith(color: OColor.gray600),
+          ),
+          if (i < labelItems.length - 1) ...{
+            Icon(TablerIcons.point_filled, size: 4, color: OColor.gray600),
+          },
         ],
-      ),
+      ],
     );
   }
 }
