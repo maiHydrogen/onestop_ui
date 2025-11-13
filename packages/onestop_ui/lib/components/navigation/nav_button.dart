@@ -6,7 +6,7 @@ class ONavButton extends StatefulWidget {
   final IconData? icon;
   final bool selected;
   final bool isAlert;
-  final Function callbackFunction; // Consider typing as VoidCallback for clarity
+  final VoidCallback callbackFunction; 
 
   const ONavButton({
     super.key,
@@ -27,7 +27,7 @@ class _ONavButtonState extends State<ONavButton> {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {
-        widget.callbackFunction(); // Fixed: Added () to invoke the function
+        widget.callbackFunction(); 
       },
       child: Container(
         padding: EdgeInsets.symmetric(
