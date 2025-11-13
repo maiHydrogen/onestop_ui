@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:onestop_ui/index.dart';
 
 class ONavButton extends StatefulWidget {
-  const ONavButton({super.key});
+  final String label;
+  final IconData icon;
+  final bool isAlert;
+  final Function() onTapped;
+
+  const ONavButton({
+    super.key,
+    required this.label,
+    required this.icon,
+    required this.isAlert,
+    required this.onTapped,
+  });
 
   @override
   State<ONavButton> createState() => _ONavButtonState();
@@ -11,9 +21,6 @@ class ONavButton extends StatefulWidget {
 
 class _ONavButtonState extends State<ONavButton> {
   bool _isPressed = false;
-
-  var isAlert = true;
-
   @override
   void initState() {
     super.initState();
@@ -29,9 +36,13 @@ class _ONavButtonState extends State<ONavButton> {
           ), //engage behaviour when button is tapped
       onTapUp: (_) {
         setState(() => _isPressed = false);
+        widget.onTapped;
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal:OSpacing.l, vertical: OSpacing.xs),
+        padding: EdgeInsets.symmetric(
+          horizontal: OSpacing.l,
+          vertical: OSpacing.xs,
+        ),
         decoration: BoxDecoration(
           color: _isPressed ? OColor.green100 : OColor.white,
           borderRadius: BorderRadius.all(Radius.circular(OCornerRadius.m)),
@@ -45,18 +56,20 @@ class _ONavButtonState extends State<ONavButton> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
-                  TablerIcons.arrow_rotary_first_left,
+                  widget.icon,
                   color: _isPressed ? OColor.green600 : OColor.gray800,
                   size: 24,
                 ),
                 const SizedBox(height: OSpacing.xxs),
                 OText(
-                  text: "Label",
-                  style: OTextStyle.bodyXSmall.copyWith(color: _isPressed ? OColor.green600 : OColor.gray800),
+                  text: widget.label,
+                  style: OTextStyle.bodyXSmall.copyWith(
+                    color: _isPressed ? OColor.green600 : OColor.gray800,
+                  ),
                 ),
               ],
             ),
-            if (isAlert == true)
+            if (widget.isAlert == true)
               Positioned(
                 top: 0,
                 right: 0,

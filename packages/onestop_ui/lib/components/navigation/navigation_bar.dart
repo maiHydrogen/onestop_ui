@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:onestop_ui/index.dart';
 
 class ONavBar extends StatefulWidget {
@@ -49,8 +50,14 @@ class _ONavBarState extends State<ONavBar> {
         scrollDirection: Axis.horizontal,
         itemCount: 10,
         itemBuilder: (context, index) {
-        return ONavButton();
-      },)
+          return ONavButton(
+            icon: TablerIcons.arrow_rotary_first_left,
+            isAlert: false,
+            label: "Arrrow",
+            onTapped: () {},
+          );
+        },
+      ),
     );
   }
 }
