@@ -45,6 +45,8 @@ class _Demo4State extends State<Demo4> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               OText(text: "List Demo"),
+              ToggleDemo(),
+              ImageDemo(),
               SizedBox(height: 25),
               ListDemo(),
               const SizedBox(height: 25),
@@ -55,7 +57,6 @@ class _Demo4State extends State<Demo4> {
               DateMonthYearPicker(),
               const SizedBox(height: 25),
               MonthYearPicker(),
-              const SizedBox(height: 25),
             ],
           ),
         ),

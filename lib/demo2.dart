@@ -47,9 +47,6 @@ class _Demo2State extends State<Demo2> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ToggleDemo(),
-              ImageDemo(),
-              Divider(),
               const SizedBox(height: 20),
               ModalDemo(),
               const SizedBox(height: 20),
