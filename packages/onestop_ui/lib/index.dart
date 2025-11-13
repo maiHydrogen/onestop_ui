@@ -70,7 +70,7 @@ export 'components/images/image_selector.dart';
 export 'widget_demo/image_demo.dart';
 
 // navigation
-export 'widget_demo/nav_demo.dart';
 export 'components/navigation/navigation_bar.dart';
 export 'components/navigation/app_bar.dart';
 export 'components/navigation/nav_button.dart';
+export 'components/navigation/nav_bar_controller.dart';

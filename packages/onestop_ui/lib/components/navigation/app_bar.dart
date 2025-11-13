@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:onestop_ui/index.dart';
 
-class OAppBar extends StatefulWidget {
+class OAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
   final IconData? trailingIcon;
-  final Function()? onIconTap;
+  final VoidCallback? onIconTap;
   final bool isProgressive;
   final int? countSteps;
   final int? currentStep;
@@ -23,6 +23,15 @@ class OAppBar extends StatefulWidget {
 
   @override
   State<OAppBar> createState() => _OAppBarState();
+
+  @override
+  Size get preferredSize {
+    double height = kToolbarHeight; // 56.0
+    if (isProgressive && countSteps != null) {
+      height += 70.0;
+    }
+    return Size.fromHeight(height);
+  }
 }
 
 class _OAppBarState extends State<OAppBar> {
@@ -31,8 +40,14 @@ class _OAppBarState extends State<OAppBar> {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.symmetric(horizontal: OSpacing.l),
-          color: OColor.white,
+          padding: EdgeInsets.symmetric(horizontal: OSpacing.s),
+          decoration: BoxDecoration(
+            color: OColor.white,
+            border:
+                widget.isProgressive
+                    ? null
+                    : Border(bottom: BorderSide(color: OColor.gray200)),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -51,7 +66,8 @@ class _OAppBarState extends State<OAppBar> {
                 style: OTextStyle.labelLarge.copyWith(color: OColor.gray600),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed:
+                    widget.onIconTap != null ? () => widget.onIconTap!() : null,
                 icon: Icon(
                   widget.trailingIcon,
                   color: OColor.green600,
@@ -61,18 +77,17 @@ class _OAppBarState extends State<OAppBar> {
             ],
           ),
         ),
-        if (widget.isProgressive == true) SizedBox(height: OSpacing.xs),
+        if (widget.isProgressive == true) SizedBox(height: OSpacing.s),
         if (widget.isProgressive == true)
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal:OSpacing.xl),
+            padding: const EdgeInsets.symmetric(horizontal: OSpacing.xl),
             child: StepProgressIndicator(
               numberOfSteps: widget.countSteps!,
               currentStep: widget.currentStep!,
               stepNames: widget.stepNames!,
             ),
           ),
-        SizedBox(height: OSpacing.s),
-        Divider(color: OColor.gray200),
+        if (widget.isProgressive == true) Divider(color: OColor.gray200),
       ],
     );
   }
