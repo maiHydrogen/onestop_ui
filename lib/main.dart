@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:onestop_ui/index.dart';
+import 'demo.dart';
+import 'demo2.dart';
+import 'demo3.dart';
+import 'demo4.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,25 +20,41 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
   late ThemeStore themeStore;
+  final int initialTabIndex = 0;
+  late final ONavBarController _navBarController;
+  final List<String> labels = ["Demo", "Demo2", "Demo3", "Demo4"];
+  final List<IconData> icons = const [
+    TablerIcons.arrow_rotary_first_left,
+    TablerIcons.arrow_rotary_first_left,
+    TablerIcons.arrow_rotary_first_left,
+    TablerIcons.arrow_rotary_first_left,
+  ];
 
   @override
   void initState() {
     super.initState();
     themeStore = ThemeStore();
     themeStore.addListener(_onThemeChanged);
+    _navBarController = ONavBarController(
+      initialIndex: initialTabIndex,
+      length: labels.length,
+      vsync: this,
+    );
   }
 
   @override
   void dispose() {
     themeStore.removeListener(_onThemeChanged);
     super.dispose();
+    _navBarController.dispose();
   }
 
   void _onThemeChanged() {
     setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -48,75 +69,23 @@ class _MyAppState extends State<MyApp> {
         scaffoldBackgroundColor: themeStore.backgroundColor,
       ),
       home: Scaffold(
-        backgroundColor: themeStore.backgroundColor,
-        appBar: AppBar(
-          title: OText(text: 'OneStop UI Demo', style: OTextStyle.headingLarge),
-          backgroundColor: themeStore.surfaceColor,
-          foregroundColor: themeStore.textColor,
-          actions: [
-            IconButton(
-              icon: Icon(
-                themeStore.isDarkMode ? Icons.light_mode : Icons.dark_mode,
-                color: themeStore.iconColor,
-              ),
-              onPressed: () => themeStore.toggleTheme(),
-            ),
-          ],
+        bottomNavigationBar: ONavBar(
+          controller: _navBarController,
+          height: 70,
+          initialSelectedTab: labels[initialTabIndex],
+          labels: labels,
+          icons: icons,
+          onTabItemSelected: (int value) {
+            setState(() {
+              _navBarController.index = value;
+            });
+          },
         ),
+        backgroundColor: themeStore.backgroundColor,
         body: SafeArea(
-          child: Container(
-            color: themeStore.backgroundColor,
-            child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    OText(text: 'OneStop UI', style: OTextStyle.displayMedium),
-                    OText(text: 'Hello, World!', style: OTextStyle.bodyLarge),
-                    OText(text: 'Welcome to OneStop UI', style: OTextStyle.headingLarge),
-                    OText(text: 'This is a sample text', style: OTextStyle.bodyMedium),
-                    OText(text: 'Enjoy building your app!', style: OTextStyle.bodySmall),
-                    const SizedBox(height: 20),
-                    ToggleDemo(),
-                    ImageDemo(),
-                    Divider(),
-                    const SizedBox(height: 20),
-                    ModalDemo(),
-                    const SizedBox(height: 20),
-                    CardsDemo(),
-                    const SizedBox(height: 20),
-                    TextfieldsDemo(),
-                    IndicatorsDemo(),
-                    const SizedBox(height: 10),
-                    Divider(color: themeStore.borderColor),
-                    const SizedBox(height: 10),
-                    Text(
-                      "Buttons Part",
-                      style: TextStyle(fontSize: 25, color: themeStore.textColor),
-                    ),
-                    SizedBox(height: 25),
-                    ButtonsDemo(),
-                    const SizedBox(height: 10),
-                    Divider(color: themeStore.borderColor),
-                    const SizedBox(height: 10),
-                    Text("List Demo", style: TextStyle(fontSize: 25, color: themeStore.textColor)),
-                    SizedBox(height: 25),
-                    ListDemo(),
-                    const SizedBox(height: 25),
-                    OCalendar(),
-                   const SizedBox(height: 25),
-                    ClockTime(),
-                   const SizedBox(height: 25),
-                    DateMonthYearPicker(),
-                   const SizedBox(height: 25),
-                    MonthYearPicker(),
-                    const SizedBox(height: 25),
-                    
-                  ],
-                ),
-              ),
-            ),
+          child: IndexedStack(
+            index: _navBarController.currentIndex,
+            children: [Demo(), Demo2(), Demo3(), Demo4()],
           ),
         ),
       ),

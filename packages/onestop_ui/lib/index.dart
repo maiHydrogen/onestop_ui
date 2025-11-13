@@ -68,3 +68,9 @@ export 'components/images/image_gallery.dart';
 export 'components/images/image_preview.dart';
 export 'components/images/image_selector.dart';
 export 'widget_demo/image_demo.dart';
+
+// navigation
+export 'components/navigation/navigation_bar.dart';
+export 'components/navigation/app_bar.dart';
+export 'components/navigation/nav_button.dart';
+export 'components/navigation/nav_bar_controller.dart';

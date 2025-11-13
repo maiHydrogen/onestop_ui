@@ -178,7 +178,7 @@ class _OHomeCardLargeState extends State<OHomeCardLarge> {
         onTapDown:
             (_) => setState(
               () => _isPressed = true,
-            ), //engage behaviour when search bar is tapped
+            ), //engage behaviour when card is tapped
         onTapUp: (_) {
           setState(() => _isPressed = false);
         },
