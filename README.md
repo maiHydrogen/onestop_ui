@@ -28,11 +28,11 @@ If you experience any issue in this repo or require some other component please 
 
 ## Screenshots
 
+<img width="270" height="600" alt="Screenshot_20251114_015808" src="https://github.com/user-attachments/assets/6ead2344-0081-4c89-85a2-8f991f73680d" />
+<img width="270" height="600" alt="Screenshot_20251114_015850" src="https://github.com/user-attachments/assets/ba9eb57f-5b72-40f0-a869-9b8bbc6e6a7a" />
+<img width="270" height="600" alt="Screenshot_20251114_020239" src="https://github.com/user-attachments/assets/385e07d9-f42d-4c57-b9ca-ce68ad05784e" />
+<img width="270" height="600" alt="Screenshot_20251114_020002" src="https://github.com/user-attachments/assets/d012626e-8373-4a1d-a6c6-36789d39f607" />
+<img width="270" height="600" alt="Screenshot_20251114_020309" src="https://github.com/user-attachments/assets/1dbbc2fc-6bea-406a-97a5-d64fc093746e" />
+<img width="270" height="600" alt="Screenshot_20251114_020002" src="https://github.com/user-attachments/assets/0a1226bf-b656-4b64-bd3f-d6da8d47cf9a" />
+<img width="270" height="600" alt="Screenshot_20251114_015913" src="https://github.com/user-attachments/assets/c45405d4-82f3-47fe-93fd-073345f536e0" />
 
-![Screenshot_20251114_015808.png](../../Users/Asus/Desktop/Screenshot_20251114_015808.png)
-![Screenshot_20251114_015850.png](../../Users/Asus/Desktop/Screenshot_20251114_015850.png)
-![Screenshot_20251114_020239.png](../../Users/Asus/Desktop/Screenshot_20251114_020239.png)
-![Screenshot_20251114_015932.png](../../Users/Asus/Desktop/Screenshot_20251114_015932.png)
-![Screenshot_20251114_015913.png](../../Users/Asus/Desktop/Screenshot_20251114_015913.png)
-![Screenshot_20251114_020002.png](../../Users/Asus/Desktop/Screenshot_20251114_020002.png)
-![Screenshot_20251114_020309.png](../../Users/Asus/Desktop/Screenshot_20251114_020309.png)
