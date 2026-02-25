@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:onestop_ui/index.dart';
 
@@ -65,4 +66,62 @@ class ThemeStore extends ChangeNotifier {
   Color get subtitleColor => isDarkMode ? const Color(0xFF8E8E93) : OColor.gray600;
   Color get borderColor => isDarkMode ? const Color(0xFF3A3A3C) : OColor.gray200;
   Color get iconColor => isDarkMode ? OColor.white : OColor.gray800;
+
+  ThemeData get lightThemeData => ThemeData(
+    brightness: Brightness.light,
+    scaffoldBackgroundColor: OColor.gray100,
+    appBarTheme: AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: OColor.gray100,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
+        systemNavigationBarColor: OColor.white,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+    ),
+    textTheme: const TextTheme(
+      bodyLarge: OTextStyle.bodyLarge,
+      bodyMedium: OTextStyle.bodyMedium,
+      bodySmall: OTextStyle.bodySmall,
+      displayLarge: OTextStyle.displayLarge,
+      displayMedium: OTextStyle.displayMedium,
+      displaySmall: OTextStyle.displaySmall,
+      headlineLarge: OTextStyle.headingLarge,
+      headlineMedium: OTextStyle.headingMedium,
+      headlineSmall: OTextStyle.headingSmall,
+      labelLarge: OTextStyle.labelLarge,
+      labelMedium: OTextStyle.labelMedium,
+      labelSmall: OTextStyle.labelSmall,
+    ),
+    fontFamily: OTextStyle.fontFamily,
+  );
+
+  ThemeData get darkThemeData => ThemeData(
+    brightness: Brightness.dark,
+    scaffoldBackgroundColor: OColor.gray100,
+    appBarTheme: AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: OColor.gray100,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+        systemNavigationBarColor: OColor.white,
+        systemNavigationBarIconBrightness: Brightness.light,
+      ),
+    ),
+    textTheme: const TextTheme(
+      bodyLarge: OTextStyle.bodyLarge,
+      bodyMedium: OTextStyle.bodyMedium,
+      bodySmall: OTextStyle.bodySmall,
+      displayLarge: OTextStyle.displayLarge,
+      displayMedium: OTextStyle.displayMedium,
+      displaySmall: OTextStyle.displaySmall,
+      headlineLarge: OTextStyle.headingLarge,
+      headlineMedium: OTextStyle.headingMedium,
+      headlineSmall: OTextStyle.headingSmall,
+      labelLarge: OTextStyle.labelLarge,
+      labelMedium: OTextStyle.labelMedium,
+      labelSmall: OTextStyle.labelSmall,
+    ),
+    fontFamily: OTextStyle.fontFamily,
+  );
 }
