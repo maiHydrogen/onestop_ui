@@ -25,10 +25,10 @@ class ThemeStore extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> toggleTheme() async {
+  Future<void> toggleTheme({bool notify = true}) async {
     _currentTheme = _currentTheme == Brightness.light ? Brightness.dark : Brightness.light;
     await _saveTheme(_currentTheme);
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
   Future<void> setTheme(Brightness theme) async {
