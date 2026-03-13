@@ -53,8 +53,10 @@ class ThemeStore extends ChangeNotifier {
     switch (theme) {
       case 'light':
         return Brightness.light;
-      default:
+      case 'dark':
         return Brightness.dark;
+      default:
+        return WidgetsBinding.instance.platformDispatcher.platformBrightness;
     }
   }
 
